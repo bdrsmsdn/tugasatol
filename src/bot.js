@@ -7,11 +7,12 @@ const token = process.env.BOT_TOKEN;
 const bot = new TeleBot(token);
 
 //apikey hubungi ak
-const apikey = '';
+const apikey = 'K2021fuckoff789';
 const color = require('../utils');
 const { instagram, igstory } = require('../lib/functions');
 const axios = require('axios');
 const emojiUnicode = require('emoji-unicode');
+const base64 = require('base64topdf');
 
 bot.on(['/start', '/hello'], (msg) => {
   msg.reply.text(
@@ -52,28 +53,117 @@ bot.on('/downloader', (msg) => {
   return console.log(color('[EXEC]'), color(new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString('id'), 'yellow'), color(`/downloader`), 'from', color(`${msg.chat.first_name}`));
 });
 
-bot.on('edit', (msg) => {
-  return msg.reply.text('Terdeteksi melakukan pengeditan pesan!', { asReply: true });
+// bot.on('/sekolah', (msg) => {
+//   msg.reply.text(`Silakan kirim lokasi untuk melihat informasi sekolah di sekitarmu`, { asReply: true });
+// });
+
+bot.on('photo', (msg) => {
+  let str = base64.base64ToStr(msg.type.photo);
+  console.log(str);
+});
+
+// bot.on('/sekolah', (msg) => {
+//   msg.reply.text(`Silakan kirim lokasi untuk melihat informasi sekolah di sekitarmu`, { asReply: true });
+// });
+
+bot.on('location', (msg) => {
+  const chatId = msg.chat.id;
+  var location = msg.location;
+  console.log(`${location.latitude},${location.longitude}`);
+  axios
+    .get(`https://api.open-elevation.com/api/v1/lookup?locations=${location.latitude},${location.longitude}`)
+    .then(function (response) {
+      let res = response.data.results[0];
+      var optio = {
+        method: 'GET',
+        url: `https://badra.my.id/api/agro?alt=${res.elevation}`,
+      };
+      axios
+        .request(optio)
+        .then(function (respons) {
+          let resw = respons.data.results;
+          let xi = `Anda berada pada ketinggian: ${res.elevation} mdpl, ${resw.zone}
+
+${resw.description}
+${resw.plant}
+`;
+          bot.sendMessage(chatId, `${xi}`, { asReply: true });
+        })
+        .catch(function (error) {
+          bot.sendMessage(chatId, `Terjadi kesalahan di API 2!`, { asReply: true });
+        });
+    })
+    .catch(function (error) {
+      bot.sendMessage(chatId, `Terjadi kesalahan di API Geocode!`, { asReply: true });
+    });
+  return console.log(color('[EXEC]'), color(new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString('id'), 'yellow'), color(`/agro`), 'from', color(`${msg.chat.first_name}`));
 });
 
 // bot.on('location', (msg) => {
+//   const chatId = msg.chat.id;
 //   var location = msg.location;
-//   return msg.reply.text(`Ini adalah lokasimu: ${location.latitude} dan ${location.longitude}`);
+//   console.log(`${location.latitude},${location.longitude}`);
+//   var options = {
+//     method: 'GET',
+//     url: 'https://forward-reverse-geocoding.p.rapidapi.com/v1/reverse',
+//     params: {
+//       lat: `${location.latitude}`,
+//       lon: `${location.longitude}`,
+//       'accept-language': 'en',
+//       polygon_threshold: '0.0',
+//     },
+//     headers: {
+//       'x-rapidapi-key': '33cddd5088msh54605b0ab723661p1863b7jsn4a751612ee44',
+//       'x-rapidapi-host': 'forward-reverse-geocoding.p.rapidapi.com',
+//     },
+//   };
+//   axios
+//     .request(options)
+//     .then(function (response) {
+//       let res = response.data.address;
+//       var optio = {
+//         method: 'GET',
+//         url: `https://api-sekolah-indonesia.herokuapp.com/sekolah/s?sekolah=${res.village}`,
+//       };
+//       axios
+//         .request(optio)
+//         .then(function (response) {
+//           let xi = `Informasi sekolah di sekitar lokasi ${res.village}\n\n`;
+//           let resw = response.data;
+//           let resq = resw.dataSekolah;
+//           for (let i = 1; i < resq.length; i++) {
+//             xi += `${i}. Nama sekolah: ${resq[i].sekolah}
+// Status: ${resq[i].bentuk}${resq[i].status}
+// Alamat: ${resq[i].alamat_jalan}
+// NPSN: ${resq[i].npsn}
+// Maps: https://www.google.co.id/maps/@${resq[i].lintang},${resq[i].bujur}
+// \n========================\n`;
+//           }
+//           bot.sendMessage(chatId, `${xi}`, { asReply: true });
+//         })
+//         .catch(function (error) {
+//           bot.sendMessage(chatId, `Terjadi kesalahan di API Sekolah!`, { asReply: true });
+//         });
+//     })
+//     .catch(function (error) {
+//       bot.sendMessage(chatId, `Terjadi kesalahan di API Geocode!`, { asReply: true });
+//     });
+//   return console.log(color('[EXEC]'), color(new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString('id'), 'yellow'), color(`/sekolah`), 'from', color(`${msg.chat.first_name}`));
 // });
 
-bot.on('/cat', (msg) => {
-  const chatId = msg.chat.id;
-  axios
-    .get('https://api.vhtear.com/randomcat?apikey=' + apikey)
-    .then((response) => {
-      bot.sendPhoto(chatId, response.data.result.url);
-    })
-    .catch((error) => {
-      const errorText = `Error!`;
-      bot.sendMessage(chatId, errorText, { parse_mode: 'HTML', asReply: true });
-    });
-  return console.log(color('[EXEC]'), color(new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString('id'), 'yellow'), color(`/cat`), 'from', color(`${msg.chat.first_name}`));
-});
+// bot.on('/cat', (msg) => {
+//   const chatId = msg.chat.id;
+//   axios
+//     .get('https://api.vhtear.com/randomcat?apikey=' + apikey)
+//     .then((response) => {
+//       bot.sendPhoto(chatId, response.data.result.url);
+//     })
+//     .catch((error) => {
+//       const errorText = `Error!`;
+//       bot.sendMessage(chatId, errorText, { parse_mode: 'HTML', asReply: true });
+//     });
+//   return console.log(color('[EXEC]'), color(new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString('id'), 'yellow'), color(`/cat`), 'from', color(`${msg.chat.first_name}`));
+// });
 
 bot.on(/^\/tiktok (.+)$/, (msg, link) => {
   const chatId = msg.chat.id;

@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
+    "base64topdf": "^1.1.8",
     "chalk": "^4.1.1",
     "dotenv": "^10.0.0",
     "emoji-unicode": "2.0.1",
