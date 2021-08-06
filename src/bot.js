@@ -5,7 +5,7 @@ const token = process.env.BOT_TOKEN;
 
 //ini isi sm bot token klen yh, bkin file .env aj
 const bot = new TeleBot(token);
-
+///////////////////////
 //apikey hubungi ak
 const apikey = 'K2021fuckoff789';
 const color = require('../utils');
