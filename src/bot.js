@@ -78,8 +78,8 @@ bot.on('/agro', (msg) => {
               let resw = respons.data.results;
               let xi = `Anda berada pada ketinggian: ${res.elevation} mdpl, ${resw.zone}
   
-  ${resw.description}
-  ${resw.plant}
+${resw.description}
+${resw.plant}
   `;
               bot.sendMessage(chatId, `${xi}`, { asReply: true });
             })
