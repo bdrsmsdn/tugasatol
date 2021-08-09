@@ -24,7 +24,7 @@ Saya adalah Aksa-BOT yang dibuat oleh t.me/bdrsmsdn untuk memenuhi salah satu Tu
 3. https://badra.my.id/api/agro
 4. https://forward-reverse-geocoding.p.rapidapi.com/v1/reverse
 5. https://api-sekolah-indonesia.herokuapp.com/sekolah
-5. https://api.vhtear.com
+6. https://api.vhtear.com
 
 Ketik /help untuk melihat menu.`,
     { asReply: true }
