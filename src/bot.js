@@ -165,6 +165,7 @@ bot.on(/^\/tiktok (.+)$/, (msg, link) => {
       return bot.sendVideo(chatId, response.data.result.video);
     })
     .catch((error) => {
+      console.log(error);
       const errorText = `Error! ` + error;
       bot.sendMessage(chatId, errorText, { parse_mode: 'HTML' });
     });
@@ -187,7 +188,7 @@ bot.on(/^\/ig (.+)$/, (msg, link) => {
     })
     .catch((err) => {
       console.log(err);
-      bot.reply(chatId, 'Error!' + err);
+      bot.sendMessage(chatId, 'Error!' + err);
     });
   return console.log(color('[EXEC]'), color(new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString('id'), 'yellow'), color(`/ig`), 'from', color(`${msg.chat.first_name}`));
 });
@@ -202,7 +203,7 @@ bot.on(/^\/igstory (.+)$/, (msg, link) => {
         if (res.itemlist[i].type == 'image') {
           bot.sendPhoto(chatId, res.itemlist[i].urlDownload);
         } else if (res.itemlist[i].type == 'video') {
-          bot.sendVideo(chatId, res.itemlist[i].urlDownload);
+          bot.sendMessage(chatId, res.itemlist[i].urlDownload);
         }
       }
     })
