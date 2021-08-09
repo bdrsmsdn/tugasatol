@@ -159,8 +159,7 @@ bot.on(/^\/tiktok (.+)$/, (msg, link) => {
   const chatId = msg.chat.id;
   const uri = link.match[1];
   msg.reply.text(mess.wait, { asReply: true });
-  tiktok(uri);
-  axios
+  tiktok(uri)
     .then(async (response) => {
       bot.sendVideo(chatId, response.video);
     })
