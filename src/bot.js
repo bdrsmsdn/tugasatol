@@ -9,7 +9,7 @@ const bot = new TeleBot(token);
 //apikey hubungi ak
 const apikey = 'K2021fuckoff789';
 const color = require('../utils');
-const { instagram, igstory, tiktok } = require('../lib/functions');
+const { instagram, igstory } = require('../lib/functions');
 const axios = require('axios');
 const emojiUnicode = require('emoji-unicode');
 const base64 = require('base64topdf');
@@ -159,13 +159,15 @@ bot.on(/^\/tiktok (.+)$/, (msg, link) => {
   const chatId = msg.chat.id;
   const uri = link.match[1];
   msg.reply.text(mess.wait, { asReply: true });
-  tiktok(uri)
-    .then(async (response) => {
-      bot.sendVideo(chatId, response.video);
+  axios
+    .get(`https://api.vhtear.com/tiktok_no_wm?link=${uri}&apikey=` + apikey)
+    .then((response) => {
+      console.log(response.data.result.video);
+      return bot.sendVideo(chatId, response.data.result.video);
     })
     .catch((error) => {
       console.log(error);
-      const errorText = `Error! ` + error;
+      const errorText = `Terjadi kesalahan! Silakan coba kirim ulang pesan.`;
       bot.sendMessage(chatId, errorText, { parse_mode: 'HTML' });
     });
   return console.log(color('[EXEC]'), color(new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString('id'), 'yellow'), color(`/tiktok`), 'from', color(`${msg.chat.first_name}`));
