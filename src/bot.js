@@ -9,7 +9,7 @@ const bot = new TeleBot(token);
 //apikey hubungi ak
 const apikey = 'K2021fuckoff789';
 const color = require('../utils');
-const { instagram, igstory } = require('../lib/functions');
+const { instagram, igstory, tiktok } = require('../lib/functions');
 const axios = require('axios');
 const emojiUnicode = require('emoji-unicode');
 const base64 = require('base64topdf');
@@ -159,10 +159,10 @@ bot.on(/^\/tiktok (.+)$/, (msg, link) => {
   const chatId = msg.chat.id;
   const uri = link.match[1];
   msg.reply.text(mess.wait, { asReply: true });
+  tiktok(uri);
   axios
-    .get(`https://api.vhtear.com/tiktok_no_wm?link=${uri}&apikey=` + apikey)
-    .then((response) => {
-      return bot.sendVideo(chatId, response.data.result.video);
+    .then(async (response) => {
+      bot.sendVideo(chatId, response.video);
     })
     .catch((error) => {
       console.log(error);
