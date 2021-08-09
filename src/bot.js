@@ -187,7 +187,7 @@ bot.on(/^\/ig (.+)$/, (msg, link) => {
     })
     .catch((err) => {
       console.log(err);
-      bot.reply(chatId, 'Error!');
+      bot.reply(chatId, 'Error!' + err);
     });
   return console.log(color('[EXEC]'), color(new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString('id'), 'yellow'), color(`/ig`), 'from', color(`${msg.chat.first_name}`));
 });
@@ -208,7 +208,7 @@ bot.on(/^\/igstory (.+)$/, (msg, link) => {
     })
     .catch((err) => {
       console.log(err);
-      bot.reply(chatId, 'Error!');
+      bot.reply(chatId, 'Error!' + err);
     });
   return console.log(color('[EXEC]'), color(new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString('id'), 'yellow'), color(`/igstory`), 'from', color(`${msg.chat.first_name}`));
 });
