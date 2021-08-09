@@ -13,6 +13,9 @@ const { instagram, igstory } = require('../lib/functions');
 const axios = require('axios');
 const emojiUnicode = require('emoji-unicode');
 const base64 = require('base64topdf');
+const mess = {
+  wait: 'Silakan tunggu sebentar.',
+};
 
 bot.on(['/start', '/hello'], (msg) => {
   msg.reply.text(
@@ -155,13 +158,14 @@ bot.on('/sekolah', (msg) => {
 bot.on(/^\/tiktok (.+)$/, (msg, link) => {
   const chatId = msg.chat.id;
   const uri = link.match[1];
+  msg.reply.text(mess.wait, { asReply: true });
   axios
     .get(`https://api.vhtear.com/tiktok_no_wm?link=${uri}&apikey=` + apikey)
     .then((response) => {
       return bot.sendVideo(chatId, response.data.result.video);
     })
     .catch((error) => {
-      const errorText = `Error!`;
+      const errorText = `Error! ` + error;
       bot.sendMessage(chatId, errorText, { parse_mode: 'HTML' });
     });
   return console.log(color('[EXEC]'), color(new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString('id'), 'yellow'), color(`/tiktok`), 'from', color(`${msg.chat.first_name}`));
@@ -170,6 +174,7 @@ bot.on(/^\/tiktok (.+)$/, (msg, link) => {
 bot.on(/^\/ig (.+)$/, (msg, link) => {
   const chatId = msg.chat.id;
   const uri = link.match[1];
+  msg.reply.text(mess.wait, { asReply: true });
   instagram(uri)
     .then(async (res) => {
       for (let i = 0; i < res.post.length; i++) {
@@ -190,6 +195,7 @@ bot.on(/^\/ig (.+)$/, (msg, link) => {
 bot.on(/^\/igstory (.+)$/, (msg, link) => {
   const chatId = msg.chat.id;
   const uri = link.match[1];
+  msg.reply.text(mess.wait, { asReply: true });
   igstory(uri)
     .then(async (res) => {
       for (let i = 0; i < res.itemlist.length; i++) {
