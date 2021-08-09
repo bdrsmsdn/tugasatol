@@ -17,11 +17,14 @@ const base64 = require('base64topdf');
 bot.on(['/start', '/hello'], (msg) => {
   msg.reply.text(
     `Hai ${msg.chat.first_name}!✨
-Saya adalah Agro-BOT yang dibuat oleh t.me/bdrsmsdn untuk memenuhi salah satu Tugas Besar Mata Kuliah Aplikasi Teknologi Online. Saya dibuat menggunakan bahasa Node.js dengan bantuan framework dari Telebot. Saya berfungsi untuk mengetahui ketinggian suatu daerah berdasar lokasi yang anda kirim, dan memberi tahu zona iklim dan tanaman apa yang cocok dibudayakan. API yang digunakan di bot ini antara lain:
+Saya adalah Aksa-BOT yang dibuat oleh t.me/bdrsmsdn untuk memenuhi salah satu Tugas Besar Mata Kuliah Aplikasi Teknologi Online. Saya dibuat menggunakan bahasa Node.js dengan bantuan framework dari Telebot. Saya memiliki banyak fitur seperti mengetahui ketinggian suatu daerah berdasar lokasi yang anda kirim, memberi tahu zona iklim dan tanaman apa yang cocok dibudayakan di lokasi tersebut, dll. API yang digunakan di bot ini antara lain:
 
 1. https://core.telegram.org/api
 2. https://api.open-elevation.com/api/v1/lookup
 3. https://badra.my.id/api/agro
+4. https://forward-reverse-geocoding.p.rapidapi.com/v1/reverse
+5. https://api-sekolah-indonesia.herokuapp.com/sekolah
+5. https://api.vhtear.com
 
 Ketik /help untuk melihat menu.`,
     { asReply: true }
@@ -34,7 +37,7 @@ Ketik /help untuk melihat menu.`,
 // });
 
 bot.on(['/help', '/menu'], (msg) => {
-  msg.reply.text(`Halo, silakan kirim lokasi untuk memulai. BTW kita punya fitur downloader juga ko, langsung saja /downloader yaa.`, { asReply: true });
+  msg.reply.text(`Halo, silakan ketik /sekolah atau /agro untuk memulai. BTW kita punya fitur downloader juga ko, langsung saja ketik /downloader yaa.`, { asReply: true });
   return console.log(color('[EXEC]'), color(new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString('id'), 'yellow'), color(`/help`), 'from', color(`${msg.chat.first_name}`));
 });
 
@@ -43,24 +46,15 @@ bot.on('/downloader', (msg) => {
     `Halo, berikut adalah list menu downloader:
 1. /ig link
 2. /igstory username
-3. /tiktok link
-4.`,
+3. /tiktok link`,
     { asReply: true }
   );
   return console.log(color('[EXEC]'), color(new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString('id'), 'yellow'), color(`/downloader`), 'from', color(`${msg.chat.first_name}`));
 });
 
-// bot.on('/sekolah', (msg) => {
-//   msg.reply.text(`Silakan kirim lokasi untuk melihat informasi sekolah di sekitarmu`, { asReply: true });
-// });
-
-bot.on('photo', (msg) => {
-  let str = base64.base64ToStr(msg.type.photo);
-  console.log(str);
-});
-
-// bot.on('/sekolah', (msg) => {
-//   msg.reply.text(`Silakan kirim lokasi untuk melihat informasi sekolah di sekitarmu`, { asReply: true });
+// bot.on('photo', (msg) => {
+//   let str = base64.base64ToStr(msg.type.photo);
+//   console.log(str);
 // });
 
 bot.on('/agro', (msg) => {
@@ -157,20 +151,6 @@ bot.on('/sekolah', (msg) => {
     })
   );
 });
-
-// bot.on('/cat', (msg) => {
-//   const chatId = msg.chat.id;
-//   axios
-//     .get('https://api.vhtear.com/randomcat?apikey=' + apikey)
-//     .then((response) => {
-//       bot.sendPhoto(chatId, response.data.result.url);
-//     })
-//     .catch((error) => {
-//       const errorText = `Error!`;
-//       bot.sendMessage(chatId, errorText, { parse_mode: 'HTML', asReply: true });
-//     });
-//   return console.log(color('[EXEC]'), color(new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString('id'), 'yellow'), color(`/cat`), 'from', color(`${msg.chat.first_name}`));
-// });
 
 bot.on(/^\/tiktok (.+)$/, (msg, link) => {
   const chatId = msg.chat.id;
