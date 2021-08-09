@@ -162,7 +162,7 @@ bot.on(/^\/tiktok (.+)$/, (msg, link) => {
   axios
     .get(`https://api.vhtear.com/tiktok_no_wm?link=${uri}&apikey=` + apikey)
     .then((response) => {
-      return bot.sendVideo(chatId, response.data.result.video);
+      bot.sendVideo(chatId, response.data.result.video);
     })
     .catch((error) => {
       console.log(error);
