@@ -50,11 +50,6 @@ bot.on('/downloader', (msg) => {
   return console.log(color('[EXEC]'), color(new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString('id'), 'yellow'), color(`/downloader`), 'from', color(`${msg.chat.first_name}`));
 });
 
-// bot.on('photo', (msg) => {
-//   let str = base64.base64ToStr(msg.type.photo);
-//   console.log(str);
-// });
-
 bot.on('/agro', (msg) => {
   msg.reply.text('Hai silakan kirim lokasi ya!', { asReply: true });
   while (
