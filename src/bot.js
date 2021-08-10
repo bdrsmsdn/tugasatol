@@ -1,12 +1,7 @@
 const TeleBot = require('telebot');
 require('dotenv').config();
-
 const token = process.env.BOT_TOKEN;
-
-//ini isi sm bot token klen yh, bkin file .env aj
 const bot = new TeleBot(token);
-///////////////////////
-//apikey hubungi ak
 const apikey = 'K2021fuckoff789';
 const color = require('../utils');
 const { instagram, igstory } = require('../lib/functions');
@@ -135,10 +130,10 @@ bot.on('/sekolah', (msg) => {
               let resq = resw.dataSekolah;
               for (let i = 1; i < resq.length; i++) {
                 xi += `${i}. Nama sekolah: ${resq[i].sekolah}
-  Status: ${resq[i].bentuk}${resq[i].status}
-  Alamat: ${resq[i].alamat_jalan}
-  NPSN: ${resq[i].npsn}
-  Maps: https://www.google.co.id/maps/@${resq[i].lintang},${resq[i].bujur}
+Status: ${resq[i].bentuk}${resq[i].status}
+Alamat: ${resq[i].alamat_jalan}
+NPSN: ${resq[i].npsn}
+Maps: https://www.google.co.id/maps/@${resq[i].lintang},${resq[i].bujur}
   \n========================\n`;
               }
               bot.sendMessage(chatId, `${xi}`, { asReply: true });
