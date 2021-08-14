@@ -2,7 +2,7 @@ const TeleBot = require('telebot');
 require('dotenv').config();
 const token = process.env.BOT_TOKEN;
 const bot = new TeleBot(token);
-const apikey = 'K2021fuckoff789';
+const apikey = process.env.API_VHTEAR;
 const color = require('../utils');
 const { instagram, igstory } = require('../lib/functions');
 const axios = require('axios');
