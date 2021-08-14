@@ -2,7 +2,8 @@ const TeleBot = require('telebot');
 require('dotenv').config();
 const token = process.env.BOT_TOKEN;
 const bot = new TeleBot(token);
-const apikey = process.env.API_VHTEAR;
+const apikey = process.env.APIKEY_VHTEAR;
+const rapidapikey = process.env.APIKEY_RAPID;
 const color = require('../utils');
 const { instagram, igstory } = require('../lib/functions');
 const axios = require('axios');
@@ -110,7 +111,7 @@ bot.on('/sekolah', (msg) => {
           polygon_threshold: '0.0',
         },
         headers: {
-          'x-rapidapi-key': '33cddd5088msh54605b0ab723661p1863b7jsn4a751612ee44',
+          'x-rapidapi-key': rapidapikey,
           'x-rapidapi-host': 'forward-reverse-geocoding.p.rapidapi.com',
         },
       };
